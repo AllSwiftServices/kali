@@ -13,10 +13,10 @@ export default function BottomNav() {
 
   const navItems = [
     { icon: Home, label: 'Home', page: 'dashboard' },
-    { icon: Wallet, label: 'Accounts', page: 'portfolio' },
+    { icon: Wallet, label: 'Wallet', page: 'wallet' },
     { icon: ArrowLeftRight, label: 'Trade', page: 'trade', isTradeFab: true },
     { icon: LineChart, label: 'Track', page: 'markets' },
-    { icon: CreditCard, label: 'Card', page: 'wallet' },
+    { icon: CreditCard, label: 'Portfolio', page: 'portfolio' },
   ];
 
   return (
