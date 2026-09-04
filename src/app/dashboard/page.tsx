@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Bell, Menu, Gem } from 'lucide-react';
+import { Eye, EyeOff, Bell, Menu } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
@@ -113,23 +113,16 @@ export default function Dashboard() {
             <Menu className="h-6 w-6 stroke-[2.2]" />
           </button>
 
-          {/* Missions Badge & Notification Bell */}
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F2A4A] border border-sky-500/30 text-xs font-bold text-sky-400 hover:bg-[#14365D] transition-all">
-              <Gem className="h-3.5 w-3.5 fill-sky-400 text-sky-400" />
-              <span>Missions</span>
-            </button>
-
-            <button 
-              onClick={() => setIsNotificationsOpen(true)}
-              className="p-2 rounded-xl text-slate-300 hover:text-white transition-colors relative"
-            >
-              <Bell className="h-5 w-5" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#0B1220]" />
-              )}
-            </button>
-          </div>
+          {/* Notification Bell */}
+          <button 
+            onClick={() => setIsNotificationsOpen(true)}
+            className="p-2 rounded-xl text-slate-300 hover:text-white transition-colors relative"
+          >
+            <Bell className="h-5 w-5" />
+            {unreadCount > 0 && (
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#0B1220]" />
+            )}
+          </button>
         </div>
       </header>
 
