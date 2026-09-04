@@ -2,15 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Bell, Search, User, Sun, Moon } from 'lucide-react';
+import { Eye, EyeOff, Bell, Menu, Gem } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { useNavigate } from '@/lib/react-router-shim';
 import { createPageUrl } from '@/utils';
-import { useTheme } from '@/components/ui/ThemeProvider';
 import { useAuth } from '@/lib/AuthContext';
-import { InlineTrend } from '@/components/dashboard/BalanceChart';
 import WalletBreakdown from '@/components/dashboard/WalletBreakdown';
 import QuickActions from '@/components/dashboard/QuickActions';
 import TopMovers from '@/components/dashboard/TopMovers';
@@ -81,16 +79,14 @@ export default function Dashboard() {
 
   const allAssetsValue = calcValue(portfolio || []);
   
-  // Trading wallet = just its raw cash (no assets are purchased from here)
+  // Trading wallet = cash balance
   const tradingBalance = tradingWallet.main_balance || 0;
-  // Holding wallet = its cash balance + ALL asset holdings (crypto + stocks)
+  // Holding wallet = cash + asset holdings
   const holdingBalance = (holdingWallet.main_balance || 0) + allAssetsValue;
   
   const totalBalance = tradingBalance + holdingBalance;
 
-  // Real 24h change, derived from each held asset's actual change_percent
-  // (populated by the price sync) — not fabricated. Cash balances don't
-  // move on their own, so only asset holdings contribute to the delta.
+  // Real 24h change derived from asset price changes
   const dollarChange = (portfolio || []).reduce((sum: number, h: any) => {
     const asset = assets?.find((a: any) => a.symbol === h.asset_symbol);
     const value = h.quantity * (asset?.price || h.avg_buy_price);
@@ -105,36 +101,35 @@ export default function Dashboard() {
   if (isLoadingAuth) return null;
 
   return (
-    <div className="min-h-screen pb-32 md:pb-8 bg-background text-foreground">
+    <div className="min-h-screen pb-32 md:pb-8 bg-[#0B1220] text-slate-100">
       {/* ── HEADER ── */}
-      <header className="sticky top-0 z-30 backdrop-blur-xl border-b bg-background/90 border-border">
-        <div className="flex items-center gap-3 px-4 py-3">
+      <header className="sticky top-0 z-30 bg-[#0B1220]/90 backdrop-blur-md border-b border-white/5">
+        <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
           {/* Menu icon → Profile */}
-          <button onClick={() => navigate(createPageUrl('Profile'))} className="p-2 rounded-xl transition-colors shrink-0 text-muted-foreground">
-            <User className="h-5 w-5" />
-          </button>
-
-          {/* Search bar */}
-          <div
-            className="flex-1 flex items-center gap-2 px-4 py-2.5 rounded-full cursor-pointer bg-muted"
-            onClick={() => navigate(createPageUrl('Markets'))}
-          >
-            <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
-            <span className="text-sm truncate text-muted-foreground">Search...</span>
-          </div>
-
-          {/* Bell */}
           <button 
-            onClick={() => setIsNotificationsOpen(true)}
-            className="p-2 rounded-xl transition-colors relative shrink-0 text-muted-foreground"
+            onClick={() => navigate(createPageUrl('Profile'))} 
+            className="p-2 rounded-xl text-slate-300 hover:text-white transition-colors"
           >
-            <Bell className="h-5 w-5" />
-            {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-destructive text-white text-[10px] flex items-center justify-center rounded-full border-2 border-background font-bold">
-                {unreadCount > 9 ? '9+' : unreadCount}
-              </span>
-            )}
+            <Menu className="h-6 w-6 stroke-[2.2]" />
           </button>
+
+          {/* Missions Badge & Notification Bell */}
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F2A4A] border border-sky-500/30 text-xs font-bold text-sky-400 hover:bg-[#14365D] transition-all">
+              <Gem className="h-3.5 w-3.5 fill-sky-400 text-sky-400" />
+              <span>Missions</span>
+            </button>
+
+            <button 
+              onClick={() => setIsNotificationsOpen(true)}
+              className="p-2 rounded-xl text-slate-300 hover:text-white transition-colors relative"
+            >
+              <Bell className="h-5 w-5" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#0B1220]" />
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -143,54 +138,52 @@ export default function Dashboard() {
         onOpenChange={setIsNotificationsOpen} 
       />
 
-      <div className="px-4 py-6 space-y-8">
-        {/* ── SECTION 1: Portfolio Overview ── */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-start gap-4">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <p className="text-sm font-medium text-muted-foreground">Total Balance</p>
-                <button onClick={() => setHideBalance(h => !h)} className="text-muted-foreground">
-                  {hideBalance
-                    ? <EyeOff className="h-4 w-4" />
-                    : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-
-              {hideBalance ? (
-                <p className="text-4xl font-bold tracking-tight text-foreground">••••••••</p>
-              ) : (
-                <>
-                  <AnimatedNumber value={totalBalance} prefix="$" decimals={2} className="text-4xl font-bold tracking-tight text-foreground" />
-                  {portfolio && portfolio.length > 0 && (
-                    <p className={cn('text-sm font-semibold mt-1', isPositive ? 'text-primary' : 'text-destructive')}>
-                      {isPositive ? '+' : ''}${Math.abs(dollarChange).toFixed(2)} ({isPositive ? '+' : ''}{percentChange.toFixed(2)}%) 24H
-                    </p>
-                  )}
-                </>
-              )}
-            </div>
-
-            {!hideBalance && (
-              <div className="shrink-0 pt-6">
-                <InlineTrend isPositive={isPositive} />
-              </div>
-            )}
+      <div className="px-4 py-6 space-y-7 max-w-md mx-auto">
+        {/* ── SECTION 1: Total Balance Display (Centered matching mockup) ── */}
+        <motion.div 
+          initial={{ opacity: 0, y: 12 }} 
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center pt-2 pb-2"
+        >
+          <div className="flex items-center justify-center gap-1.5 mb-2 text-slate-400 text-sm font-medium">
+            <span>Total Balance</span>
+            <button 
+              onClick={() => setHideBalance(h => !h)} 
+              className="text-slate-400 hover:text-slate-200 transition-colors p-0.5"
+            >
+              {hideBalance ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
+
+          {hideBalance ? (
+            <p className="text-4xl font-extrabold tracking-tight text-white my-1">••••••••</p>
+          ) : (
+            <div className="flex items-baseline justify-center gap-2">
+              <AnimatedNumber 
+                value={totalBalance} 
+                prefix="$ " 
+                decimals={2} 
+                className="text-4xl font-black tracking-tight text-white" 
+              />
+              <span className="text-xl font-bold text-slate-400">USD</span>
+            </div>
+          )}
+
+          {!hideBalance && (
+            <div className="flex items-center justify-center gap-2 mt-2 text-sm font-bold">
+              <span className={cn(isPositive ? 'text-[#00E676]' : 'text-red-400')}>
+                {isPositive ? '+' : ''}{percentChange.toFixed(2)}%
+              </span>
+              <span className="text-slate-600">|</span>
+              <span className={cn(isPositive ? 'text-[#00E676]' : 'text-red-400')}>
+                {isPositive ? '+' : ''}${Math.abs(dollarChange).toFixed(0)}
+              </span>
+            </div>
+          )}
         </motion.div>
 
-        {/* ── SECTION 2: Wallet Breakdown ── */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <p className="font-bold text-base mb-3 text-foreground">Wallets</p>
-          <WalletBreakdown
-            tradingBalance={tradingBalance}
-            holdingBalance={holdingBalance}
-            hideBalance={hideBalance}
-          />
-        </motion.div>
-
-        {/* ── SECTION 3: Quick Actions ── */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+        {/* ── SECTION 2: Action Buttons (Buy, Sell, Deposit, Pay) ── */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <QuickActions
             onDeposit={() => navigate(createPageUrl('wallet'))}
             onMarkets={() => navigate(createPageUrl('Markets'))}
@@ -199,20 +192,22 @@ export default function Dashboard() {
           />
         </motion.div>
 
-        {/* ── SECTION 4: Top Movers ── */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <div className="flex items-center justify-between mb-1">
-            <span />
-            <button
-              onClick={() => navigate(createPageUrl('Markets'))}
-              className="text-xs font-semibold text-primary"
-            >
-              See all →
-            </button>
-          </div>
+        {/* ── SECTION 3: Favourites / Top Assets List ── */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
           <TopMovers
             assets={assets || []}
             onAssetClick={(asset: any) => navigate(createPageUrl('Markets') + `?asset=${asset.symbol}`)}
+            onSeeAll={() => navigate(createPageUrl('Markets'))}
+          />
+        </motion.div>
+
+        {/* ── SECTION 4: Wallet Breakdown ── */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <p className="font-bold text-base mb-3 text-white">Wallets</p>
+          <WalletBreakdown
+            tradingBalance={tradingBalance}
+            holdingBalance={holdingBalance}
+            hideBalance={hideBalance}
           />
         </motion.div>
       </div>
