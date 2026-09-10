@@ -46,15 +46,15 @@ export function parseMarkdownToHtml(markdown: string): string {
   html = html.replace(/(\*|_)(.*?)\1/g, "<em>$2</em>");
 
   // Headers (e.g. ### Header)
-  html = html.replace(/^### (.*?)$/gm, '<h3 style="margin-top: 24px; margin-bottom: 12px; font-size: 18px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">$1</h3>');
-  html = html.replace(/^## (.*?)$/gm, '<h2 style="margin-top: 24px; margin-bottom: 12px; font-size: 20px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">$1</h2>');
-  html = html.replace(/^# (.*?)$/gm, '<h1 style="margin-top: 24px; margin-bottom: 12px; font-size: 24px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">$1</h1>');
+  html = html.replace(/^### (.*?)$/gm, '<h3 style="margin-top: 24px; margin-bottom: 12px; font-size: 18px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">$1</h3>');
+  html = html.replace(/^## (.*?)$/gm, '<h2 style="margin-top: 24px; margin-bottom: 12px; font-size: 20px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">$1</h2>');
+  html = html.replace(/^# (.*?)$/gm, '<h1 style="margin-top: 24px; margin-bottom: 12px; font-size: 24px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">$1</h1>');
 
   // Horizontal rules (---)
   html = html.replace(/^---$/gm, '<hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 20px 0;" />');
 
   // Links ([text](url))
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #7c3aed; text-decoration: underline; font-weight: 600;">$1</a>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #2563eb; text-decoration: underline; font-weight: 600;">$1</a>');
 
   // Bullet list items (starting with * or - or +)
   html = html.replace(/^\s*[-*+]\s+(.*?)$/gm, '<li style="margin-bottom: 6px; color: #4b5563; font-family: Arial, sans-serif; font-size: 15px;">$1</li>');
@@ -80,9 +80,9 @@ export function parseMarkdownToHtml(markdown: string): string {
 }
 
 /**
- * Wraps content in a premium BloFin-style email template.
+ * Wraps content in a premium Kali-branded email template.
  */
-export function generateBloFinStyleEmailHtml(title: string, contentHtml: string, name?: string): string {
+export function generateKaliStyleEmailHtml(title: string, contentHtml: string, name?: string): string {
   const greeting = name ? `Hi ${name},` : "Hello,";
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kali.com";
   const leftLogoUrl = `${appUrl}/logo-left.png`;
@@ -96,21 +96,21 @@ export function generateBloFinStyleEmailHtml(title: string, contentHtml: string,
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
       </head>
-      <body style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f3f4f6; padding: 40px 10px;">
+      <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; padding: 40px 10px;">
           <tr>
             <td align="center">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e5e7eb;">
-                <!-- HEADER (Crypto.com styled dark header with brand logos) -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+                <!-- HEADER (Kali styled dark navy header with brand logos) -->
                 <tr>
-                  <td style="background-color: #0f0c1b; padding: 22px 30px; border-bottom: 4px solid #7047EB;">
+                  <td style="background-color: #0f172a; padding: 22px 30px; border-bottom: 4px solid #2563eb;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td align="left" valign="middle" style="font-size: 0; line-height: 0;">
-                          <img src="${leftLogoUrl}" height="38" style="display: block; height: 38px; border: 0; outline: none; text-decoration: none;" alt="Crypto.com" />
+                          <img src="${leftLogoUrl}" height="38" style="display: block; height: 38px; border: 0; outline: none; text-decoration: none;" alt="Kali" />
                         </td>
                         <td align="right" valign="middle" style="font-size: 0; line-height: 0;">
-                          <img src="${rightLogoUrl}" height="32" style="display: block; height: 32px; border: 0; outline: none; text-decoration: none;" alt="Crypto.com Emblem" />
+                          <img src="${rightLogoUrl}" height="32" style="display: block; height: 32px; border: 0; outline: none; text-decoration: none;" alt="Kali Emblem" />
                         </td>
                       </tr>
                     </table>
@@ -121,36 +121,36 @@ export function generateBloFinStyleEmailHtml(title: string, contentHtml: string,
                 <tr>
                   <td style="padding: 40px 30px; background-color: #ffffff;">
                     <!-- Greeting -->
-                    <p style="margin: 0 0 20px; font-size: 16px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">
+                    <p style="margin: 0 0 20px; font-size: 16px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">
                       ${greeting}
                     </p>
                     
                     <!-- Main Body -->
-                    <div style="font-size: 15px; line-height: 1.6; color: #374151; font-family: Arial, sans-serif;">
+                    <div style="font-size: 15px; line-height: 1.6; color: #334155; font-family: Arial, sans-serif;">
                       ${contentHtml}
                     </div>
 
                     <!-- Regards -->
-                    <p style="margin: 30px 0 0; font-size: 15px; color: #4b5563; line-height: 1.5; font-family: Arial, sans-serif;">
+                    <p style="margin: 30px 0 0; font-size: 15px; color: #475569; line-height: 1.5; font-family: Arial, sans-serif;">
                       Regards,<br>
-                      <strong style="color: #111827;">Crypto.com team</strong>
+                      <strong style="color: #0f172a;">Kali team</strong>
                     </p>
                   </td>
                 </tr>
 
                 <!-- FOOTER -->
                 <tr>
-                  <td style="background-color: #ffffff; padding: 0 30px 40px; border-top: 1px solid #f3f4f6;">
-                    <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 0 0 30px 0;" />
+                  <td style="background-color: #ffffff; padding: 0 30px 40px; border-top: 1px solid #f1f5f9;">
+                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 0 0 30px 0;" />
                     
                     <!-- Disclaimer -->
-                    <p style="margin: 0 0 16px; font-size: 11px; line-height: 1.5; color: #9ca3af; text-align: center; font-family: Arial, sans-serif;">
+                    <p style="margin: 0 0 16px; font-size: 11px; line-height: 1.5; color: #94a3b8; text-align: center; font-family: Arial, sans-serif;">
                       Kali strives to safeguard your account and transactions to protect you from scams. Thank you for choosing Kali.
                     </p>
                     
                     <!-- Support Link -->
                     <p style="margin: 0 0 20px; font-size: 12px; text-align: center; font-family: Arial, sans-serif;">
-                      <a href="mailto:support@kali.com" style="color: #7047EB; text-decoration: none; font-weight: bold;">support@kali.com</a>
+                      <a href="mailto:support@kali.com" style="color: #2563eb; text-decoration: none; font-weight: bold;">support@kali.com</a>
                     </p>
                   </td>
                 </tr>
@@ -163,12 +163,15 @@ export function generateBloFinStyleEmailHtml(title: string, contentHtml: string,
   `;
 }
 
+// Backwards-compatibility export alias
+export const generateBloFinStyleEmailHtml = generateKaliStyleEmailHtml;
+
 /**
- * Sends a custom email wrapped in the BloFin style template.
+ * Sends a custom email wrapped in the Kali style template.
  */
 export async function sendGeneralEmail(to: string, subject: string, markdownContent: string, name?: string) {
   const contentHtml = parseMarkdownToHtml(markdownContent);
-  const html = generateBloFinStyleEmailHtml(subject, contentHtml, name);
+  const html = generateKaliStyleEmailHtml(subject, contentHtml, name);
 
   try {
     const mailer = getTransporter();
@@ -209,22 +212,22 @@ export async function sendOtpEmail(to: string, otp: string, type: 'login' | 'sig
 
   const name = to.split('@')[0];
   
-  // Format the OTP section beautifully as parsed HTML inside the white BloFin container
+  // Format the OTP section beautifully as parsed HTML inside the white Kali container
   const contentHtml = `
-    <p style="margin: 0 0 16px; color: #4b5563; font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6;">
+    <p style="margin: 0 0 16px; color: #475569; font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6;">
       ${messages[type]}
     </p>
-    <div style="background-color: #f5f3ff; border-radius: 8px; padding: 24px; margin: 24px 0; border: 1px solid #e9d5ff; text-align: center;">
-      <p style="margin: 0 0 8px; color: #7047EB; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-family: Arial, sans-serif;">Verification Code</p>
-      <div style="font-size: 38px; font-weight: bold; color: #7047EB; letter-spacing: 6px; margin: 10px 0; font-family: Courier, monospace;">
+    <div style="background-color: #eff6ff; border-radius: 8px; padding: 24px; margin: 24px 0; border: 1px solid #bfdbfe; text-align: center;">
+      <p style="margin: 0 0 8px; color: #2563eb; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-family: Arial, sans-serif;">Verification Code</p>
+      <div style="font-size: 38px; font-weight: bold; color: #1d4ed8; letter-spacing: 6px; margin: 10px 0; font-family: Courier, monospace;">
         ${otp}
       </div>
-      <p style="margin: 8px 0 0; color: #6b7280; font-size: 13px; font-family: Arial, sans-serif;">The verification code is valid for 10 minutes. Do not share the code with anyone.</p>
+      <p style="margin: 8px 0 0; color: #64748b; font-size: 13px; font-family: Arial, sans-serif;">The verification code is valid for 10 minutes. Do not share the code with anyone.</p>
     </div>
-    <p style="margin: 16px 0 0; font-size: 14px; color: #9ca3af; font-family: Arial, sans-serif;">If you didn't request this code, please ignore this email.</p>
+    <p style="margin: 16px 0 0; font-size: 14px; color: #94a3b8; font-family: Arial, sans-serif;">If you didn't request this code, please ignore this email.</p>
   `;
 
-  const html = generateBloFinStyleEmailHtml(titles[type], contentHtml, name);
+  const html = generateKaliStyleEmailHtml(titles[type], contentHtml, name);
 
   try {
     const mailer = getTransporter();
@@ -247,25 +250,25 @@ export async function sendWelcomeEmail(to: string, name: string) {
   console.log(`🚀 Sending welcome email to: ${to}`);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px; color: #4b5563; font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6;">
+    <p style="margin: 0 0 16px; color: #475569; font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6;">
       Thank you for joining Kali! You're now part of our community of elite traders.
     </p>
     
-    <div style="margin: 20px 0; padding-left: 14px; border-left: 3px solid #7047EB;">
-      <p style="margin: 0 0 8px; color: #4b5563; font-size: 14px; font-family: Arial, sans-serif;">✓ Advanced trading tools & real-time analytics</p>
-      <p style="margin: 0 0 8px; color: #4b5563; font-size: 14px; font-family: Arial, sans-serif;">✓ Access global markets effortlessly</p>
-      <p style="margin: 0 0 8px; color: #4b5563; font-size: 14px; font-family: Arial, sans-serif;">✓ Secure platform and funds protection</p>
+    <div style="margin: 20px 0; padding-left: 14px; border-left: 3px solid #2563eb;">
+      <p style="margin: 0 0 8px; color: #475569; font-size: 14px; font-family: Arial, sans-serif;">✓ Advanced trading tools & real-time analytics</p>
+      <p style="margin: 0 0 8px; color: #475569; font-size: 14px; font-family: Arial, sans-serif;">✓ Access global markets effortlessly</p>
+      <p style="margin: 0 0 8px; color: #475569; font-size: 14px; font-family: Arial, sans-serif;">✓ Secure platform and funds protection</p>
     </div>
 
     <div style="margin: 30px 0 20px; text-align: center;">
       <a href="${process.env.NEXT_PUBLIC_APP_URL || "https://kali.com"}/dashboard" 
-         style="display: inline-block; background-color: #7047EB; color: #ffffff; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; font-family: Arial, sans-serif;">
+         style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; font-family: Arial, sans-serif;">
         Go to Dashboard
       </a>
     </div>
   `;
 
-  const html = generateBloFinStyleEmailHtml("Welcome to Kali!", contentHtml, name);
+  const html = generateKaliStyleEmailHtml("Welcome to Kali!", contentHtml, name);
 
   try {
     const mailer = getTransporter();
@@ -289,7 +292,7 @@ export async function sendKycEmail(to: string, name: string, status: "approved" 
 
   const isApproved = status === "approved";
   const title = isApproved ? "Identity Verified! 🎉" : "Verification Update";
-  const statusColor = isApproved ? "#22c55e" : "#ef4444";
+  const statusColor = isApproved ? "#16a34a" : "#dc2626";
   
   const message = isApproved
     ? "Great news! Your identity verification has been approved. You now have full access to all Kali features, including withdrawals and advanced trading."
@@ -302,19 +305,19 @@ export async function sendKycEmail(to: string, name: string, status: "approved" 
       </span>
     </div>
 
-    <p style="margin: 0 0 16px; color: #4b5563; font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6;">
+    <p style="margin: 0 0 16px; color: #475569; font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6;">
       ${message}
     </p>
     
     <div style="margin: 30px 0 20px; text-align: center;">
       <a href="${process.env.NEXT_PUBLIC_APP_URL || "https://kali.com"}/verify-identity" 
-         style="display: inline-block; background-color: #7047EB; color: #ffffff; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; font-family: Arial, sans-serif;">
+         style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; font-family: Arial, sans-serif;">
         View Verification Status
       </a>
     </div>
   `;
 
-  const html = generateBloFinStyleEmailHtml(title, contentHtml, name);
+  const html = generateKaliStyleEmailHtml(title, contentHtml, name);
 
   try {
     const mailer = getTransporter();
