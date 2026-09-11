@@ -198,19 +198,19 @@ export async function sendOtpEmail(to: string, otp: string, type: 'login' | 'sig
 
   const subjects = {
     login: "Verify Your Email - Kali",
-    signup: "Welcome to Kali - Verify Your Email",
+    signup: "Welcome to Crypto.com - Verify Your Email",
     reset: "Reset Your Password - Kali",
   };
 
   const titles = {
     login: "Verify Your Email",
-    signup: "Welcome to Kali!",
+    signup: "Welcome to Crypto.com!",
     reset: "Reset Your Password",
   };
 
   const messages = {
     login: "Welcome back! Please use the verification code below to complete your sign in.",
-    signup: "Welcome to Kali! Please use the verification code below to complete your registration.",
+    signup: "Welcome to Crypto.com! Please use the verification code below to complete your registration.",
     reset: "You've requested to reset your password. Please use the verification code below to proceed.",
   };
 
@@ -279,14 +279,14 @@ export async function sendWelcomeEmail(to: string, name: string) {
     </div>
   `;
 
-  const html = generateKaliStyleEmailHtml("Welcome to Kali!", contentHtml, name);
+  const html = generateKaliStyleEmailHtml("Welcome to Crypto.com!", contentHtml, name);
 
   try {
     const mailer = getTransporter();
     const info = await mailer.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: "Welcome to Kali! 🎉",
+      subject: "Welcome to Crypto.com! 🎉",
       html,
     });
 
