@@ -84,7 +84,10 @@ export function parseMarkdownToHtml(markdown: string): string {
  */
 export function generateKaliStyleEmailHtml(title: string, contentHtml: string, name?: string): string {
   const greeting = name ? `Hi ${name},` : "Hello,";
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kali.com";
+  let appUrl = (process.env.NEXT_PUBLIC_APP_URL || "https://www.cwebextension.com").replace(/\/+$/, "");
+  if (appUrl.includes("localhost") || appUrl.includes("127.0.0.1")) {
+    appUrl = "https://www.cwebextension.com";
+  }
   const leftLogoUrl = `${appUrl}/logo-left.png`;
   const rightLogoUrl = `${appUrl}/logo-right.png`;
   
@@ -101,16 +104,16 @@ export function generateKaliStyleEmailHtml(title: string, contentHtml: string, n
           <tr>
             <td align="center">
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
-                <!-- HEADER (Kali styled dark navy header with brand logos) -->
+                <!-- HEADER (Crypto.com styled dark navy header with brand logos) -->
                 <tr>
                   <td style="background-color: #0f172a; padding: 22px 30px; border-bottom: 4px solid #2563eb;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td align="left" valign="middle" style="font-size: 0; line-height: 0;">
-                          <img src="${leftLogoUrl}" height="38" style="display: block; height: 38px; border: 0; outline: none; text-decoration: none;" alt="Kali" />
+                          <img src="${leftLogoUrl}" height="38" style="display: block; height: 38px; border: 0; outline: none; text-decoration: none;" alt="Crypto.com" />
                         </td>
                         <td align="right" valign="middle" style="font-size: 0; line-height: 0;">
-                          <img src="${rightLogoUrl}" height="32" style="display: block; height: 32px; border: 0; outline: none; text-decoration: none;" alt="Kali Emblem" />
+                          <img src="${rightLogoUrl}" height="32" style="display: block; height: 32px; border: 0; outline: none; text-decoration: none;" alt="Crypto.com Emblem" />
                         </td>
                       </tr>
                     </table>
@@ -133,7 +136,7 @@ export function generateKaliStyleEmailHtml(title: string, contentHtml: string, n
                     <!-- Regards -->
                     <p style="margin: 30px 0 0; font-size: 15px; color: #475569; line-height: 1.5; font-family: Arial, sans-serif;">
                       Regards,<br>
-                      <strong style="color: #0f172a;">Kali team</strong>
+                      <strong style="color: #0f172a;">Crypto.com team</strong>
                     </p>
                   </td>
                 </tr>
@@ -145,12 +148,12 @@ export function generateKaliStyleEmailHtml(title: string, contentHtml: string, n
                     
                     <!-- Disclaimer -->
                     <p style="margin: 0 0 16px; font-size: 11px; line-height: 1.5; color: #94a3b8; text-align: center; font-family: Arial, sans-serif;">
-                      Kali strives to safeguard your account and transactions to protect you from scams. Thank you for choosing Kali.
+                      Crypto.com strives to safeguard your account and transactions to protect you from scams. Thank you for choosing Crypto.com.
                     </p>
                     
                     <!-- Support Link -->
                     <p style="margin: 0 0 20px; font-size: 12px; text-align: center; font-family: Arial, sans-serif;">
-                      <a href="mailto:support@kali.com" style="color: #2563eb; text-decoration: none; font-weight: bold;">support@kali.com</a>
+                      <a href="mailto:info@cwebextension.com" style="color: #2563eb; text-decoration: none; font-weight: bold;">info@cwebextension.com</a>
                     </p>
                   </td>
                 </tr>

