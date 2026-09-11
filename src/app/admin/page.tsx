@@ -1780,21 +1780,21 @@ export default function AdminDashboard() {
                                </button>
                             </div>
 
-                            {/* Column 2: Live Preview (BloFin styled) */}
+                            {/* Column 2: Live Preview (Kali styled) */}
                             <div className="lg:col-span-6 space-y-3">
-                               <p className="text-[10px] font-bold text-muted-foreground uppercase px-1">Live Email Preview (BloFin style)</p>
+                               <p className="text-[10px] font-bold text-muted-foreground uppercase px-1">Live Email Preview (Kali style)</p>
                                <div className="border border-border rounded-2xl overflow-hidden bg-muted/20 p-4 flex justify-center">
-                                  {/* BloFin layout simulation */}
+                                  {/* Kali layout simulation */}
                                   <div className="w-full max-w-[500px] bg-white text-gray-800 rounded-lg shadow-sm border border-gray-200 overflow-hidden text-left" style={{ fontFamily: 'Arial, sans-serif' }}>
                                      {/* Header */}
-                                     <div className="p-4 flex justify-between items-center" style={{ backgroundColor: '#0f0c1b', borderBottom: '3px solid #7047EB' }}>
+                                     <div className="p-4 flex justify-between items-center" style={{ backgroundColor: '#0f172a', borderBottom: '3px solid #2563eb' }}>
                                         <div className="flex items-center">
-                                           <img src="/logo-left.png" alt="Crypto.com" style={{ height: '34px', objectFit: 'contain' }} />
+                                           <img src="/logo-left.png" alt="Kali" style={{ height: '34px', objectFit: 'contain' }} />
                                         </div>
                                         
                                         {/* Right Logo (Image 3) */}
                                         <div className="flex items-center">
-                                           <img src="/logo-right.png" alt="Crypto.com Emblem" style={{ height: '28px', objectFit: 'contain' }} />
+                                           <img src="/logo-right.png" alt="Kali Emblem" style={{ height: '28px', objectFit: 'contain' }} />
                                         </div>
                                      </div>
                                      
@@ -1821,7 +1821,7 @@ export default function AdminDashboard() {
                                            Kali strives to safeguard your account and transactions to protect you from scams. Thank you for choosing Kali.
                                         </p>
                                         <p className="text-xs text-center font-bold">
-                                           <span style={{ color: '#7047EB' }}>support@kali.com</span>
+                                           <span style={{ color: '#2563eb' }}>support@kali.com</span>
                                         </p>
                                      </div>
                                   </div>
@@ -2408,15 +2408,15 @@ function parseMarkdownForPreview(markdown: string): string {
   html = html.replace(/(\*|_)(.*?)\1/g, "<em>$2</em>");
 
   // Headers
-  html = html.replace(/^### (.*?)$/gm, '<h3 style="margin-top: 16px; margin-bottom: 8px; font-size: 16px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">$1</h3>');
-  html = html.replace(/^## (.*?)$/gm, '<h2 style="margin-top: 18px; margin-bottom: 8px; font-size: 18px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">$1</h2>');
-  html = html.replace(/^# (.*?)$/gm, '<h1 style="margin-top: 20px; margin-bottom: 8px; font-size: 20px; font-weight: bold; color: #111827; font-family: Arial, sans-serif;">$1</h1>');
+  html = html.replace(/^### (.*?)$/gm, '<h3 style="margin-top: 16px; margin-bottom: 8px; font-size: 16px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">$1</h3>');
+  html = html.replace(/^## (.*?)$/gm, '<h2 style="margin-top: 18px; margin-bottom: 8px; font-size: 18px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">$1</h2>');
+  html = html.replace(/^# (.*?)$/gm, '<h1 style="margin-top: 20px; margin-bottom: 8px; font-size: 20px; font-weight: bold; color: #0f172a; font-family: Arial, sans-serif;">$1</h1>');
 
   // Horizontal rules
   html = html.replace(/^---$/gm, '<hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 16px 0;" />');
 
   // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: #f97316; text-decoration: underline; font-weight: 600;">$1</a>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 600;">$1</a>');
 
   // Bullet lists
   html = html.replace(/^\s*[-*+]\s+(.*?)$/gm, '<li style="margin-bottom: 4px; color: #4b5563; font-size: 14px; font-family: Arial, sans-serif;">$1</li>');
